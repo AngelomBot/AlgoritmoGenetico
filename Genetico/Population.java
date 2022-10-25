@@ -4,17 +4,34 @@
 import java.util.ArrayList;
 
 public class Population {
-    ArrayList<Individuo> population;
+    private Individual[]population;
+    private int size;
 
-    public Population(){
-        population = new ArrayList<Individuo>();
+    public Population(int tam){
+        population = new Individual[tam];
     }
 
-    public void addIndividuo(Individuo individuo){
-        population.add(individuo);
+    public boolean isEmpty(){
+        if(size==0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public void deleteIndividuo(Individuo individuo){
-        population.remove(individuo);
+    public void addIndividual(Individual individual){
+        int i;
+        if(isEmpty()){
+            population[0] = individual;
+            size++;
+        }else{
+            for(i = 0;i<=population.length;i++){
+                
+            }
+        }
+    }
+
+    public void deleteIndividual(Individual individual){
+        population.remove(individual);
     }
 }

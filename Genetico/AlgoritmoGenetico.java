@@ -2,45 +2,56 @@ import java.util.Random;
 
 public class AlgoritmoGenetico {
 
-    public Population buildfirstPopulation(int Quantity,double LimiteMin, double LimiteMax){
-        double i,x1,x2;
+    public static void main(String[] args) {
+        System.out.println("Insira o va");
+    }
+
+    public Population buildfirstPopulation(int Quantity,int LimiteMin, int LimiteMax){
+        int i,x1,x2;
         Random random = new Random();
         Population population = new Population();
         for(i = 0;i<=Quantity;i++){
-            x1 = random.nextDouble(LimiteMin,LimiteMax);
-            x2 = random.nextDouble(LimiteMin,LimiteMax);
-            Individuo individuo = new Individuo(x1, x2);
-            population.addIndividuo(individuo);
+            x1 = random.nextInt(LimiteMax - LimiteMin) + LimiteMin;
+            x2 = random.nextInt(LimiteMax - LimiteMin) + LimiteMin;
+            Individual individual = new Individual(x1, x2);
+            population.addIndividual(individual);
         }
         return population;
     }
     
-  
-
-    public Individuo selectionTournament(Population population){
-        Individuo individuo1, individuo2, individuo3, maiorIndividuo;
+    
+    public Individual selectionTournament(Population population){
+        Individual individual1, individual2, individual3, bestIndividual;
         Random random  = new Random();
         int tam = population.population.size();
-        individuo1 = population.population.get(random.nextInt(tam));
-        individuo2 = population.population.get(random.nextInt(tam));
-        individuo3 = population.population.get(random.nextInt(tam));
-        if(individuo1.getSolution()>=individuo2.getSolution()){
-            maiorIndividuo = individuo1;
+        individual1 = population.population.get(random.nextInt(tam));
+        individual2 = population.population.get(random.nextInt(tam));
+        individual3 = population.population.get(random.nextInt(tam));
+        if(individual1.getSolution()>=individual2.getSolution()){
+            bestIndividual = individual1;
         }else{
-            maiorIndividuo = individuo2;
+            bestIndividual = individual2;
         }
-        if(maiorIndividuo.getSolution()<=individuo3.getSolution()){
-            maiorIndividuo = individuo3;
+        if(bestIndividual.getSolution()<=individual3.getSolution()){
+            bestIndividual = individual3;
         }
-        return maiorIndividuo;
+        return bestIndividual;
     }
 
-    public Individuo mutationIndividuo(Individuo individuo,double LimiteMin, double LimiteMax){
-        Random radom  = new Random();
-        Object random;
-        individuo.setX1(random.nextDouble(LimiteMin,LimiteMax));
-        individuo.setX2(random.nextDouble(LimiteMin,LimiteMax));
-        return individuo;
+    public Individual[] crossoverIndividuals(Individual individual_1, Individual individual_2){
+        Individual son_1 = new Individual(individual_1.getX1(), individual_2.getX2());
+        Individual son_2 = new Individual(individual_2.getX1(), individual_1.getX2());
+        Individual[]individuals = {son_1,son_2};
+        return individuals;
     }
+
+    public Individual mutationIndividual(Individual individual,int LimiteMin, int LimiteMax){
+        Random random  = new Random();
+        individual.setX1(random.nextInt(LimiteMax - LimiteMin) + LimiteMin);
+        individual.setX2(random.nextInt(LimiteMax - LimiteMin) + LimiteMin);
+        return individual;
+    }
+
+
 
 }
