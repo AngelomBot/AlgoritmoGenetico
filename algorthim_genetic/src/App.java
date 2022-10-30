@@ -6,22 +6,28 @@ public class App {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Population currentGeneration;
-        int x, y, limiteMin, limiteMax, SizePopulation, QtdGerations, ProbabilityMutation;
+        int x, y, limiteMin, limiteMax, SizePopulation, QtdGerations;
 
-        System.out.println("Insira o valor minimo que o parametro da função pode possuir: ");
-        limiteMin = in.nextInt();
-        System.out.println("Insira o valor maximo que o parametro da função pode possuir: ");
-        limiteMax = in.nextInt();
-        System.out.println("Insira a quantidade par de individuos da população: ");
-        SizePopulation = in.nextInt();
-        while (SizePopulation % 2 != 0) {
-            System.out.println("Insira uma quantidade par de individuos da população");
-            SizePopulation = in.nextInt();
-        }
-        System.out.println("Insira a quantidade de gerações que serão criadas: ");
-        QtdGerations = in.nextInt();
-        System.out.println("Insira a o valor da probabilidade de ocorrer uma mutacao");
-        ProbabilityMutation = in.nextInt();
+        limiteMin = 10;
+        limiteMax = 100;
+        SizePopulation = 20;
+        QtdGerations = 20;
+
+
+        // System.out.println("Insira o valor minimo que o parametro da função pode possuir: ");
+        // limiteMin = in.nextInt();
+        // System.out.println("Insira o valor maximo que o parametro da função pode possuir: ");
+        // limiteMax = in.nextInt();
+        // System.out.println("Insira a quantidade par de individuos da população: ");
+        // SizePopulation = in.nextInt();
+        // while (SizePopulation % 2 != 0) {
+        //     System.out.println("Insira uma quantidade par de individuos da população");
+        //     SizePopulation = in.nextInt();
+        // }
+        // System.out.println("Insira a quantidade de gerações que serão criadas: ");
+        // QtdGerations = in.nextInt();
+        // System.out.println("Insira a o valor da probabilidade de ocorrer uma mutacao");
+        // ProbabilityMutation = in.nextInt();
 
         currentGeneration = buildfirstPopulation(SizePopulation, limiteMin, limiteMax);
 
@@ -34,7 +40,7 @@ public class App {
             NewGeneration.addIndividual(firstIndividual);
             NewGeneration.addIndividual(secondIndividual);
 
-            for (y = 0; y < SizePopulation; y = y + 2) {
+            for (y = 2; y <= SizePopulation; y = y + 2) {
 
                 Individual parent_1 = selectionTournament(currentGeneration);
                 Individual parent_2 = selectionTournament(currentGeneration);
@@ -60,7 +66,7 @@ public class App {
         int i, x1, x2;
         Random random = new Random();
         Population population = new Population(Quantity);
-        for (i = 0; i <= Quantity; i++) {
+        for (i = 0; i < Quantity; i++) {
             x1 = random.nextInt(LimiteMax - LimiteMin) + LimiteMin;
             x2 = random.nextInt(LimiteMax - LimiteMin) + LimiteMin;
             Individual individual = new Individual(x1, x2);
