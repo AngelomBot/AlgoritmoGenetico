@@ -2,14 +2,16 @@ public class Individual {
 
     private int x1;
     private int x2;
+    private int solution;
 
     public Individual(int x1, int x2) {
         this.x1 = x1;
         this.x2 = x2;
+        this.solution = this.x1 - this.x2;
     }
 
     public int getSolution() {
-        return this.x1 - this.x2;
+        return this.solution;
     }
 
     public int getX1() {
@@ -18,6 +20,7 @@ public class Individual {
 
     public void setX1(int x) {
         this.x1 = x;
+        this.updateSolution();
     }
 
     public int getX2() {
@@ -26,5 +29,10 @@ public class Individual {
 
     public void setX2(int x) {
         this.x2 = x;
+        this.updateSolution();
+    }
+
+    private void updateSolution(){
+        this.solution = this.x1 - this.x2;
     }
 }

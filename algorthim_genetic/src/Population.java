@@ -22,7 +22,7 @@ public class Population {
         if (size == population.length) {
             for (i = population.length; i >= 1; i--) {
                 for (j = 1; j < i; j++) {
-                    if (population[j - 1].getSolution() > population[j].getSolution()) {
+                    if (population[j - 1].getSolution() < population[j].getSolution()) {
                         Individual aux = population[j];
                         population[j] = population[j - 1];
                         population[j - 1] = aux;

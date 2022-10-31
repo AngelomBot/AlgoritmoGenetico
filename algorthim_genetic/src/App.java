@@ -6,32 +6,32 @@ public class App {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Population currentGeneration;
-        int x, y, limiteMin, limiteMax, SizePopulation, QtdGerations;
+        int x, y, limiteMin, limiteMax, SizePopulation, QtdGerations,ProbabilityMutation;
 
-        limiteMin = 10;
-        limiteMax = 100;
-        SizePopulation = 20;
-        QtdGerations = 20;
-
-
-        // System.out.println("Insira o valor minimo que o parametro da função pode possuir: ");
-        // limiteMin = in.nextInt();
-        // System.out.println("Insira o valor maximo que o parametro da função pode possuir: ");
-        // limiteMax = in.nextInt();
-        // System.out.println("Insira a quantidade par de individuos da população: ");
-        // SizePopulation = in.nextInt();
-        // while (SizePopulation % 2 != 0) {
-        //     System.out.println("Insira uma quantidade par de individuos da população");
-        //     SizePopulation = in.nextInt();
-        // }
-        // System.out.println("Insira a quantidade de gerações que serão criadas: ");
-        // QtdGerations = in.nextInt();
-        // System.out.println("Insira a o valor da probabilidade de ocorrer uma mutacao");
-        // ProbabilityMutation = in.nextInt();
-
+        System.out.println("Insira o valor minimo que o parametro da função pode possuir: ");
+        limiteMin = in.nextInt();
+        System.out.println("Insira o valor maximo que o parametro da função pode possuir: ");
+        limiteMax = in.nextInt();
+        System.out.println("Insira a quantidade par de individuos da população: ");
+        SizePopulation = in.nextInt();
+        while (SizePopulation % 2 != 0) {
+            System.out.println("Insira uma quantidade par de individuos da população: ");
+            SizePopulation = in.nextInt();
+        }
+        System.out.println("Insira a quantidade de gerações que serão criadas: ");
+        QtdGerations = in.nextInt();
+        System.out.println("Insira a o valor da probabilidade de ocorrer uma mutação: ");
+        ProbabilityMutation = in.nextInt();
+        
+        //Criação da primeira geração de individuos
         currentGeneration = buildfirstPopulation(SizePopulation, limiteMin, limiteMax);
 
-        for (x = 0; x < QtdGerations; x++) {
+        System.out.print("Geração Nº 1 - ");
+        Individual bestSolutionIndividual1 = currentGeneration.findIndividual(0);
+        System.out.print("Melhor Solução: "+bestSolutionIndividual1.getSolution());
+        System.out.println();
+        
+        for (x = 1; x < QtdGerations; x++) {
             Population NewGeneration = new Population(SizePopulation);
 
             // Elitismo: Os dois melhores individuos são os primeiros da nova população
@@ -40,24 +40,33 @@ public class App {
             NewGeneration.addIndividual(firstIndividual);
             NewGeneration.addIndividual(secondIndividual);
 
-            for (y = 2; y <= SizePopulation; y = y + 2) {
+            for (y = 2; y < SizePopulation; y = y + 2) {
 
                 Individual parent_1 = selectionTournament(currentGeneration);
                 Individual parent_2 = selectionTournament(currentGeneration);
     
                 Individual[] sonsIndividuals = crossoverIndividuals(parent_1, parent_2);
-                
-                // Fazer logica da mutação..
-                
-                NewGeneration.addIndividual(sonsIndividuals[0]);
-                NewGeneration.addIndividual(sonsIndividuals[1]);
+
+                Individual son_1 = sonsIndividuals[0];
+                Individual son_2 = sonsIndividuals[1];
+
+                Random probability = new Random();
+            
+                if(probability.nextInt(101)<=ProbabilityMutation){
+                    son_1 = mutationIndividual(son_1, limiteMin, limiteMax);
+                    son_2 = mutationIndividual(son_2, limiteMin, limiteMax);
+                }
+
+                NewGeneration.addIndividual(son_1);
+                NewGeneration.addIndividual(son_2);
             }
 
             currentGeneration = NewGeneration;
 
-            System.out.println("Geração Nº "+(x+1));
-            Individual bestSolutionIndividual = currentGeneration.findIndividual(0);
-            System.out.println("Melhor Solução: "+bestSolutionIndividual);
+            System.out.print("Geração Nº "+(x+1)+" - ");
+            Individual bestSolutionIndividual2 = currentGeneration.findIndividual(0);
+            System.out.print("Melhor Solução: "+bestSolutionIndividual2.getSolution());
+            System.out.println();
         }
 
     }
