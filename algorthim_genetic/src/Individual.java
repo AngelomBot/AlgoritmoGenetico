@@ -7,7 +7,8 @@ public class Individual {
     public Individual(int x1, int x2) {
         this.x1 = x1;
         this.x2 = x2;
-        this.solution = this.x1 - this.x2;
+        this.solution = (3*((this.x1)^2) - 4*((this.x2)^3))
+        +(((this.x1)^5)+((this.x2)^6));
     }
 
     public int getSolution() {
@@ -33,6 +34,7 @@ public class Individual {
     }
 
     private void updateSolution(){
-        this.solution = this.x1 - this.x2;
+        this.solution = (3*((this.x1)^2) - 4*((this.x2)^3))
+        +(((this.x1)^5)+((this.x2)^6));
     }
 }

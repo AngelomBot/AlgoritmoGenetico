@@ -26,10 +26,13 @@ public class App {
         //Criação da primeira geração de individuos
         currentGeneration = buildfirstPopulation(SizePopulation, limiteMin, limiteMax);
 
-        System.out.print("Geração Nº 1 - ");
+        System.out.println("Geração Nº 1");
         Individual bestSolutionIndividual1 = currentGeneration.findIndividual(0);
-        System.out.print("Melhor Solução: "+bestSolutionIndividual1.getSolution());
-        System.out.println();
+        System.out.println("X1: "+bestSolutionIndividual1.getX1());
+        System.out.println("X2: "+bestSolutionIndividual1.getX2());
+        System.out.println("Melhor Solução: "+bestSolutionIndividual1.getSolution());
+        System.out.println("_______________________________________");
+
         
         for (x = 1; x < QtdGerations; x++) {
             Population NewGeneration = new Population(SizePopulation);
@@ -63,10 +66,12 @@ public class App {
 
             currentGeneration = NewGeneration;
 
-            System.out.print("Geração Nº "+(x+1)+" - ");
+            System.out.println("Geração Nº "+(x+1));
             Individual bestSolutionIndividual2 = currentGeneration.findIndividual(0);
-            System.out.print("Melhor Solução: "+bestSolutionIndividual2.getSolution());
-            System.out.println();
+            System.out.println("X1: "+bestSolutionIndividual2.getX1());
+            System.out.println("X2: "+bestSolutionIndividual2.getX2());
+            System.out.println("Melhor Solução: "+bestSolutionIndividual2.getSolution());
+            System.out.println("____________________________________");
         }
 
     }
